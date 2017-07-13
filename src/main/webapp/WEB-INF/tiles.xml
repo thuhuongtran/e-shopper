@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+ 
+<tiles-definitions>  
+  
+   <!-- Base Definition -->
+   <definition name="base-client"
+       template="/WEB-INF/jsp/layout/layout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/jsp/templates/header.jsp" />  
+       <put-attribute name="content-top" value="" />  
+       <put-attribute name="content" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/jsp/templates/footer.jsp" />  
+   </definition>  
+  
+    
+   <!-- Home Page -->
+   <definition name="homepage" extends="base-client">  
+       <put-attribute name="title" value="Welcome" />  
+       <put-attribute name="content-top" value="/WEB-INF/jsp/home_top.jsp" />  
+       <put-attribute name="content" value="/WEB-INF/jsp/home.jsp" />  
+   </definition>  
+ 
+ <!-- Login Page -->
+   <definition name="signin" extends="base-client">  
+       <put-attribute name="title" value="Sign in" />  
+       <put-attribute name="content-top" value="/WEB-INF/jsp/login_top.jsp" />  
+       <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />  
+   </definition>  
+   
+   <!-- Register Page -->
+   <definition name="signup" extends="base-client">  
+       <put-attribute name="title" value="Sign up" />  
+       <put-attribute name="content-top" value="/WEB-INF/jsp/register_top.jsp" />  
+       <put-attribute name="content" value="/WEB-INF/jsp/register.jsp" />  
+   </definition>  
+ 
+   <!-- Product List Page -->
+   <definition name="productList" extends="base-client">  
+       <put-attribute name="title" value="Products" />  
+       <put-attribute name="content-top" value="/WEB-INF/jsp/productList_top.jsp" />  
+       <put-attribute name="content" value="/WEB-INF/jsp/productList.jsp" />  
+   </definition>  
+   
+   <!-- Product Detail Page -->
+   <definition name="productDetail" extends="base-client">  
+       <put-attribute name="title" value="Product Detail" />  
+       <put-attribute name="content-top" value="/WEB-INF/jsp/productDetail_top.jsp" />  
+       <put-attribute name="content" value="/WEB-INF/jsp/productDetail.jsp" />  
+   </definition>  
+   
+   <!-- Check out Page -->
+   <definition name="checkout" extends="base-client">  
+       <put-attribute name="title" value="Check out" />  
+       <put-attribute name="content-top" value="/WEB-INF/jsp/checkout_top.jsp" />  
+       <put-attribute name="content" value="/WEB-INF/jsp/checkout.jsp" />  
+   </definition>  
+   
+   <!-- Cart Page -->
+   <definition name="cart" extends="base-client">  
+       <put-attribute name="title" value="My cart" />  
+       <put-attribute name="content-top" value="/WEB-INF/jsp/cart_top.jsp" />  
+       <put-attribute name="content" value="/WEB-INF/jsp/cart.jsp" />  
+   </definition>  
+</tiles-definitions>
