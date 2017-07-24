@@ -1,6 +1,6 @@
 package com.e_shopper.config;
 
-import com.e_shopper.dao.GetData;
+import com.e_shopper.dao.daoActions;
 import com.e_shopper.dao.connectDAO;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -58,6 +58,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public connectDAO getData() {
-        return new GetData(getDataSource());
+        return new daoActions(getDataSource());
     }
+    
 }

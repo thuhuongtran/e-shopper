@@ -3,6 +3,8 @@
     Created on : Jul 6, 2017, 8:55:36 PM
     Author     : User
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="com.e_shopper.beans.product"%>
 <section class="main-content">				
     <div class="row">						
         <div class="span9">
@@ -34,7 +36,7 @@
                     <h4><strong>Price: $${prod.pro_price}</strong></h4>
                 </div>
                 <div class="span5">
-                    <form class="form-inline" method="post" action="/e-shopper/cart">
+                    <form class="form-inline" method="post" action="/e-shopper/cart?prod_id=${prod.pro_id}">
                         <label class="checkbox">
                             <input type="checkbox" value=""> Option one is this and that
                         </label>
@@ -44,9 +46,10 @@
                         </label>
                         <p>&nbsp;</p>
                         <label>Quantity:</label>
-                        <input type="text" class="span1" placeholder="1">
+                        <input type="text" name="quantity" class="span1" value="1" required="" >
                         <button class="btn btn-inverse" type="submit">Buy now</button>
                     </form>
+                    
                 </div>							
             </div>
             <div class="row">

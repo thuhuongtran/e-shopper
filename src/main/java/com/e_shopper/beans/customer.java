@@ -16,19 +16,41 @@ public class customer {
     private String custom_name;
     private String custom_phone;
     private String custom_address;
+    private String custom_province;
+    private String custom_district;
+
+    public String getCustom_province() {
+        return custom_province;
+    }
+
+    public void setCustom_province(String custom_province) {
+        this.custom_province = custom_province;
+    }
+
+    public String getCustom_district() {
+        return custom_district;
+    }
+
+    public void setCustom_district(String custom_district) {
+        this.custom_district = custom_district;
+    }
+    
 
     public customer() {
     }
 
-    public customer(int custom_id, String custom_pass, String custom_email, String custom_name, String custom_phone, String custom_address) {
+    public customer(int custom_id, String custom_pass, String custom_email, String custom_name, String custom_phone, String custom_address, String custom_province, String custom_district) {
         this.custom_id = custom_id;
         this.custom_pass = custom_pass;
         this.custom_email = custom_email;
         this.custom_name = custom_name;
         this.custom_phone = custom_phone;
         this.custom_address = custom_address;
+        this.custom_province = custom_province;
+        this.custom_district = custom_district;
     }
 
+    
     public int getCustom_id() {
         return custom_id;
     }

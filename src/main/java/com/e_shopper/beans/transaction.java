@@ -16,26 +16,30 @@ public class transaction {
     private int tran_id;
     private int order_id;
     private int custom_id;
-    private String custom_name;
-    private String custom_phone;
-    private String custom_email;
+    private int prod_id;
     private long tran_amount;
     private Date tran_day;
     private int tran_status;
+    private String prod_name;
+    private String prod_image_link;
 
-    public transaction() {
+    public String getProd_name() {
+        return prod_name;
     }
 
-    public transaction(int tran_id, int order_id, int custom_id, String custom_name, String custom_phone, String custom_email, long tran_amount, Date tran_day, int tran_status) {
-        this.tran_id = tran_id;
-        this.order_id = order_id;
-        this.custom_id = custom_id;
-        this.custom_name = custom_name;
-        this.custom_phone = custom_phone;
-        this.custom_email = custom_email;
-        this.tran_amount = tran_amount;
-        this.tran_day = tran_day;
-        this.tran_status = tran_status;
+    public void setProd_name(String prod_name) {
+        this.prod_name = prod_name;
+    }
+
+    public String getProd_image_link() {
+        return prod_image_link;
+    }
+
+    public void setProd_image_link(String prod_image_link) {
+        this.prod_image_link = prod_image_link;
+    }
+    
+    public transaction() {
     }
 
     public int getTran_id() {
@@ -62,28 +66,12 @@ public class transaction {
         this.custom_id = custom_id;
     }
 
-    public String getCustom_name() {
-        return custom_name;
+    public int getProd_id() {
+        return prod_id;
     }
 
-    public void setCustom_name(String custom_name) {
-        this.custom_name = custom_name;
-    }
-
-    public String getCustom_phone() {
-        return custom_phone;
-    }
-
-    public void setCustom_phone(String custom_phone) {
-        this.custom_phone = custom_phone;
-    }
-
-    public String getCustom_email() {
-        return custom_email;
-    }
-
-    public void setCustom_email(String custom_email) {
-        this.custom_email = custom_email;
+    public void setProd_id(int prod_id) {
+        this.prod_id = prod_id;
     }
 
     public long getTran_amount() {
@@ -109,4 +97,5 @@ public class transaction {
     public void setTran_status(int tran_status) {
         this.tran_status = tran_status;
     }
+    
 }

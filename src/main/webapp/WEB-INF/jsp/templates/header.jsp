@@ -10,11 +10,19 @@
         <div class="span8">
             <div class="account pull-right">
                 <ul class="user-menu">
-                    <li><a href="/e-shopper/cart">My Account</a></li>
+                    <li><a href="/e-shopper/myorder">My Order</a></li>
                     <li><a href="/e-shopper/cart">Your Cart</a></li>
                     <li><a href="/e-shopper/checkout">Checkout</a></li>
-                    <li><a href="/e-shopper/signin.html">Login</a></li>
-                    <li><a href="/e-shopper/signup">Register</a></li>
+                        <c:choose>
+                            <c:when test="${sessionScope.custom==null}">
+                            <li><a href="/e-shopper/signin.html">Login</a></li>
+                            <li><a href="/e-shopper/signup">Register</a></li>
+                            </c:when>
+                            <c:otherwise>
+                            <li><a href="/e-shopper/signout">Logout</a></li>
+                            </c:otherwise>
+                        </c:choose>
+
                 </ul>
             </div>
         </div>
@@ -23,7 +31,7 @@
 <div id="wrapper" class="container">
     <section class="navbar main-menu">
         <div class="navbar-inner main-menu">
-            <a href="index.html" class="logo pull-left"><img
+            <a href="#" class="logo pull-left"><img
                     src="/e-shopper/assets/themes/images/logo.png" class="site_logo" alt=""></a>
             <nav id="menu" class="pull-right">
                 <ul>

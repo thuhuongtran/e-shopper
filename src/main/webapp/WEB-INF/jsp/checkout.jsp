@@ -3,6 +3,8 @@
     Created on : Jul 6, 2017, 9:07:35 PM
     Author     : User
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <section class="main-content">
     <div class="row">
         <div class="span12">
@@ -17,68 +19,113 @@
                             <div class="row-fluid">
                                 <div class="span6" style="">
                                     <h4>Your Personal Details</h4>
-                                    <form method="post" action="">
+                                    <form method="post" action="/e-shopper/checkout">
                                         <div class="control-group">
                                             <label class="control-label"><span class="required">*</span><strong>Name</strong></label>
                                             <div class="controls">
-                                                <input type="text" placeholder="" class="input-xlarge">
+                                                <input type="text" placeholder="" required=""class="input-xlarge" name="name" 
+                                                       value="${name}">
                                             </div>
+                                            <c:choose>
+                                                <c:when test="${nameVali==1}">
+                                                    <div class="error" style="color: red">Please place your true name.</div>
+                                                </c:when>
+                                                <c:when test="${nameVali==2}">
+                                                    <div class="error" style="color: red">Your name has to be at least 6 characters long.</div>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
 
                                         <div class="control-group">
                                             <label class="control-label"><span class="required">*</span><strong>Email Address</strong></label>
                                             <div class="controls">
-                                                <input type="text" placeholder="" class="input-xlarge">
+                                                <input type="text" placeholder="" required="" class="input-xlarge" name="email" 
+                                                       value="${email}" >
                                             </div>
+                                            <c:choose>
+                                                <c:when test="${emailVali==1}">
+                                                    <div class="error"style="color: red">Please place your true email address.</div>
+                                                </c:when>
+                                                <c:when test="${emailVali == 2}">
+                                                    <div class="error"style="color: red">Your email has to have true format.</div>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label"><span class="required">*</span><strong>Mobile phone</strong></label>
                                             <div class="controls">
-                                                <input type="text" placeholder="" class="input-xlarge">
+                                                <input type="text" placeholder="" required=""class="input-xlarge" name="mobile"
+                                                       value="${mobile}">
                                             </div>
+                                            <c:choose>
+                                                <c:when test="${mobileVali == 1}">
+                                                    <div class="error"style="color: red">Please place your true mobile phone.</div>
+                                                </c:when>
+                                                <c:when test="${mobileVali == 2}">
+                                                    <div class="error"style="color: red">Your mobile phone has to have at least 8 characters long.</div>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label"> <span class="required">*</span><strong>Province</strong></label>
                                             <div class="controls">
-                                                <select name="zone_id" class="input-xlarge">
+                                                <select name="province" class="input-xlarge">
                                                     <option value=""> --- Please Select --- </option>
-                                                    <option value="3513">Ho Chi Minh</option>
-                                                    <option value="3514">Ha Noi</option>
-                                                    <option value="3515">Da Nang</option>
-                                                    <option value="3516">Hai Phong</option>
-                                                    <option value="3517">Can Tho</option>
+                                                    <option value="Ho Chi Minh">Ho Chi Minh</option>
+                                                    <option value="Ha Noi">Ha Noi</option>
+                                                    <option value="Da Nang">Da Nang</option>
+                                                    <option value="Hai Phong">Hai Phong</option>
+                                                    <option value="Can Tho">Can Tho</option>
                                                 </select>
                                             </div>
+                                            <c:choose>
+                                                <c:when test="${province eq ''}">
+                                                    <div class="error"style="color: red">Please place your province.</div>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label"><span class="required">*</span> <strong>District</strong></label>
                                             <div class="controls">
-                                                <select name="zone_id" class="input-xlarge">
+                                                <select name="district" class="input-xlarge">
                                                     <option value=""> --- Please Select --- </option>
-                                                    <option value="3513">Hoan Kiem</option>
-                                                    <option value="3514">Hai Ba Trung</option>
-                                                    <option value="3515">Long Bien</option>
-                                                    <option value="3516">Hoang Mai</option>
-                                                    <option value="3517">Chuong My</option>
+                                                    <option value="Hoan Kiem">Hoan Kiem</option>
+                                                    <option value="Hai Ba Trung">Hai Ba Trung</option>
+                                                    <option value="Long Bien">Long Bien</option>
+                                                    <option value="Hoang Mai">Hoang Mai</option>
+                                                    <option value="Chuong My">Chuong My</option>
                                                 </select>
                                             </div>
+                                            <c:choose>
+                                                <c:when test="${district eq ''}">
+                                                    <div class="error"style="color: red">Please place your district.</div>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label"><span class="required">*</span><strong>Address</strong></label>
                                             <div class="controls">
-                                                <input type="text" placeholder="" class="input-xlarge">
+                                                <input type="text" required="" placeholder="" class="input-xlarge" name="address"
+                                                       value="${address}">
                                             </div>
+                                            <c:choose>
+                                                <c:when test="${addressVali == 1}">
+                                                    <div class="error"style="color: red">Please place your address.</div>
+                                                </c:when>
+                                                <c:when test="${addressVali ==2}">
+                                                    <div class="error"style="color: red">Your address has to be at least 8 charaters long.</div>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
-                                        <button class="btn btn-inverse pull-left">Confirm order</button>
+                                        <button class="btn btn-inverse pull-left" type="submit">Confirm order</button>
                                     </form>
-
                                 </div>
-                              
+
                             </div>
                         </div>
                     </div>
                 </div>
-              
+
             </div>				
         </div>
     </div>

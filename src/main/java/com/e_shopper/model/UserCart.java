@@ -15,19 +15,14 @@ import java.util.List;
  * @author User
  */
 public class UserCart {
-    private int orderNum;
     private customer custom;
-    private List<CartItem> cartLines = new ArrayList<CartItem>();
+    private List<CartItem> ItemList;
 
+    public UserCart(List<CartItem> ItemList) {
+        this.ItemList = ItemList;
+    }
+    
     public UserCart() {
-    }
-
-    public int getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(int orderNum) {
-        this.orderNum = orderNum;
     }
 
     public customer getCustom() {
@@ -38,21 +33,22 @@ public class UserCart {
         this.custom = custom;
     }
 
-    public List<CartItem> getCartLines() {
-        return cartLines;
+    public List<CartItem> getItemList() {
+        return ItemList;
     }
 
-    public void setCartLines(List<CartItem> cartLines) {
-        this.cartLines = cartLines;
+    public void setItemList(List<CartItem> ItemList) {
+        this.ItemList = ItemList;
     }
+
     // add item in cart
     public void addItem(product prod, int quantity){
         CartItem lineItem = new CartItem(prod, quantity);
-        this.cartLines.add(lineItem);
+        this.ItemList.add(lineItem);
     }
     // find item from prod_id 
-    private CartItem findItemfromID(int prod_id){
-        for(CartItem item : this.cartLines){
+    public CartItem findItemfromID(int prod_id){
+        for(CartItem item : this.ItemList){
             if(item.getProd().getPro_id()==prod_id){
                 return item;
             }
@@ -63,12 +59,15 @@ public class UserCart {
     public void removeItem(int prod_id){
         CartItem item = findItemfromID(prod_id);
         if(item!=null){
-            this.cartLines.remove(item);
+            this.ItemList.remove(item);
         }
     }
     // amount total cost in user cart
     public long getAmountTotal(){
         long total = 0;
+        for(CartItem item : ItemList){
+            total += item.getAmount();
+        }
         return total;
     }
 }

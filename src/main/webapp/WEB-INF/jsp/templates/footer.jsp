@@ -3,11 +3,11 @@
         <div class="span3">
             <h4>Navigation</h4>
             <ul class="nav">
-                <li><a href="./index.html">Homepage</a></li>
-                <li><a href="./about.html">About Us</a></li>
-                <li><a href="./contact.html">Contac Us</a></li>
-                <li><a href="./cart.html">Your Cart</a></li>
-                <li><a href="./register.html">Login</a></li>
+                <li><a href="/e-shopper/home">Homepage</a></li>
+                <li><a href="/e-shopper/home">About Us</a></li>
+                <li><a href="/e-shopper/home">Contac Us</a></li>
+                <li><a href="/e-shopper/cart">Your Cart</a></li>
+                <li><a href="/e-shopper/signin">Login</a></li>
             </ul>
         </div>
         <div class="span4">

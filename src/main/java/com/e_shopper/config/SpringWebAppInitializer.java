@@ -22,10 +22,13 @@ public class SpringWebAppInitializer implements WebApplicationInitializer {
                 new DispatcherServlet(appContext));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
-
+/*
         ContextLoaderListener contextLoaderListener = new ContextLoaderListener(appContext);
 
         servletContext.addListener(contextLoaderListener);
+*/
+
+        servletContext.addListener(SessionListener.class);
         // UtF8 Charactor Filter.
         FilterRegistration.Dynamic fr = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
 

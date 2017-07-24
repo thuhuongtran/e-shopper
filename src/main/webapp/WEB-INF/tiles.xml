@@ -3,63 +3,125 @@
  
 <tiles-definitions>  
   
-   <!-- Base Definition -->
-   <definition name="base-client"
-       template="/WEB-INF/jsp/layout/layout.jsp">  
-       <put-attribute name="title" value="" />  
-       <put-attribute name="header" value="/WEB-INF/jsp/templates/header.jsp" />  
-       <put-attribute name="content-top" value="" />  
-       <put-attribute name="content" value="" />  
-       <put-attribute name="footer" value="/WEB-INF/jsp/templates/footer.jsp" />  
-   </definition>  
-  
+    <!-- Base Definition -->
+    <definition name="base-client"
+                template="/WEB-INF/jsp/layout/layout.jsp">  
+        <put-attribute name="title" value="" />  
+        <put-attribute name="header" value="/WEB-INF/jsp/templates/header.jsp" />  
+        <put-attribute name="content-top" value="" />  
+        <put-attribute name="content" value="" />  
+        <put-attribute name="footer" value="/WEB-INF/jsp/templates/footer.jsp" />  
+    </definition>  
+<!--    Base admin Definition-->
+    <definition name="base-admin" template="/WEB-INF/jsp/layout/layout-admin.jsp">
+        <put-attribute name="title" value="" />  
+        <put-attribute name="header-admin" value="/WEB-INF/jsp/templates/header-admin.jsp" />  
+        <put-attribute name="left-menu" value="/WEB-INF/jsp/templates/left-menu.jsp" />  
+        <put-attribute name="main-content" value="" />  
+    </definition>
+    <!-- Home Page -->
+    <definition name="homepage" extends="base-client">  
+        <put-attribute name="title" value="Welcome" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/home_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/home.jsp" />  
+    </definition>  
+ 
+    <!-- Login Page -->
+    <definition name="signin" extends="base-client">  
+        <put-attribute name="title" value="Sign in" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/login_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />  
+    </definition>  
+   
+    <!-- Register Page -->
+    <definition name="signup" extends="base-client">  
+        <put-attribute name="title" value="Sign up" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/register_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/register.jsp" />  
+    </definition>  
+ 
+    <!-- Product List Page -->
+    <definition name="productList" extends="base-client">  
+        <put-attribute name="title" value="Products" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/productList_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/productList.jsp" />  
+    </definition>  
+   
+    <!-- Product Detail Page -->
+    <definition name="productDetail" extends="base-client">  
+        <put-attribute name="title" value="Product Detail" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/productDetail_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/productDetail.jsp" />  
+    </definition>  
+   
+    <!-- Check out Page -->
+    <definition name="checkout" extends="base-client">  
+        <put-attribute name="title" value="Check out" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/checkout_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/checkout.jsp" />  
+    </definition>  
+   
+    <!-- Cart Page -->
+    <definition name="cart" extends="base-client">  
+        <put-attribute name="title" value="My cart" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/cart_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/cart.jsp" />  
+    </definition>  
+    <!--    success sign up-->
+    <definition name="successSignup" extends="base-client">  
+        <put-attribute name="title" value="Sign up successfully" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/register_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/successSignup.jsp" />  
+    </definition>  
+    <!--    success order-->
+    <definition name="successCheckout" extends="base-client">  
+        <put-attribute name="title" value="Check out successfully" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/checkout_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/successCheckout.jsp" />  
+    </definition>  
+      <!--    my order-->
+    <definition name="myorder" extends="base-client">  
+        <put-attribute name="title" value="My order" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/order_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/myorder.jsp" />  
+    </definition>  
+<!--    =======================ADMIN======================= -->
+     <!-- Dashboard admin -->
+    <definition name="dashboard" extends="base-admin">  
+        <put-attribute name="title" value="Director | Dashboard" />  
+        <put-attribute name="main-content" value="/WEB-INF/jsp/dashboard.jsp" />  
+    </definition>  
+     <!-- order booking admin -->
+    <definition name="orderbooking" extends="base-admin">  
+        <put-attribute name="title" value="Order Booking" />  
+        <put-attribute name="main-content" value="/WEB-INF/jsp/orderBooking.jsp" />  
+    </definition>  
+    <!-- success confirm -->
+    <definition name="successProcess" extends="base-admin">  
+        <put-attribute name="title" value="Successful Confirmation" />  
+        <put-attribute name="main-content" value="/WEB-INF/jsp/successProcess.jsp" />  
+    </definition>  
+    <!-- manage products -->
+    <definition name="manageProd" extends="base-admin">  
+        <put-attribute name="title" value="Products" />  
+        <put-attribute name="main-content" value="/WEB-INF/jsp/prodList_ad.jsp" />  
+    </definition>  
+     <!-- edit product -->
+    <definition name="editProd" extends="base-admin">  
+        <put-attribute name="title" value="Edit product" />  
+        <put-attribute name="main-content" value="/WEB-INF/jsp/editProd.jsp" />  
+    </definition>  
+    <!-- add new  product -->
+    <definition name="addNewProduct" extends="base-admin">  
+        <put-attribute name="title" value="Add new product" />  
+        <put-attribute name="main-content" value="/WEB-INF/jsp/addProd.jsp" />  
+    </definition>  
     
-   <!-- Home Page -->
-   <definition name="homepage" extends="base-client">  
-       <put-attribute name="title" value="Welcome" />  
-       <put-attribute name="content-top" value="/WEB-INF/jsp/home_top.jsp" />  
-       <put-attribute name="content" value="/WEB-INF/jsp/home.jsp" />  
-   </definition>  
- 
- <!-- Login Page -->
-   <definition name="signin" extends="base-client">  
-       <put-attribute name="title" value="Sign in" />  
-       <put-attribute name="content-top" value="/WEB-INF/jsp/login_top.jsp" />  
-       <put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />  
-   </definition>  
-   
-   <!-- Register Page -->
-   <definition name="signup" extends="base-client">  
-       <put-attribute name="title" value="Sign up" />  
-       <put-attribute name="content-top" value="/WEB-INF/jsp/register_top.jsp" />  
-       <put-attribute name="content" value="/WEB-INF/jsp/register.jsp" />  
-   </definition>  
- 
-   <!-- Product List Page -->
-   <definition name="productList" extends="base-client">  
-       <put-attribute name="title" value="Products" />  
-       <put-attribute name="content-top" value="/WEB-INF/jsp/productList_top.jsp" />  
-       <put-attribute name="content" value="/WEB-INF/jsp/productList.jsp" />  
-   </definition>  
-   
-   <!-- Product Detail Page -->
-   <definition name="productDetail" extends="base-client">  
-       <put-attribute name="title" value="Product Detail" />  
-       <put-attribute name="content-top" value="/WEB-INF/jsp/productDetail_top.jsp" />  
-       <put-attribute name="content" value="/WEB-INF/jsp/productDetail.jsp" />  
-   </definition>  
-   
-   <!-- Check out Page -->
-   <definition name="checkout" extends="base-client">  
-       <put-attribute name="title" value="Check out" />  
-       <put-attribute name="content-top" value="/WEB-INF/jsp/checkout_top.jsp" />  
-       <put-attribute name="content" value="/WEB-INF/jsp/checkout.jsp" />  
-   </definition>  
-   
-   <!-- Cart Page -->
-   <definition name="cart" extends="base-client">  
-       <put-attribute name="title" value="My cart" />  
-       <put-attribute name="content-top" value="/WEB-INF/jsp/cart_top.jsp" />  
-       <put-attribute name="content" value="/WEB-INF/jsp/cart.jsp" />  
-   </definition>  
+    <!-- Login Page -->
+    <definition name="signinAd" extends="base-client">  
+        <put-attribute name="title" value="Sign in" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/login_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/loginAd.jsp" />  
+    </definition>  
+     
 </tiles-definitions>

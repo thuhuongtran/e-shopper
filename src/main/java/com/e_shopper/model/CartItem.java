@@ -40,7 +40,7 @@ public class CartItem {
         this.quantity = quantity;
     }
     
-    public long getAmount(){
+    public int getAmount(){
         return this.prod.getPro_price()*this.quantity;
     }
 }

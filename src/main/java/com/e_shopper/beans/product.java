@@ -12,14 +12,14 @@ package com.e_shopper.beans;
 public class product {
     private int pro_id;
     private String pro_name;
-    private long pro_price;
+    private int pro_price;
     private String pro_img_link;
     private int pro_stock;
 
     public product() {
     }
 
-    public product(int pro_id, String pro_name, long pro_price, String pro_img_link, int pro_stock) {
+    public product(int pro_id, String pro_name, int pro_price, String pro_img_link, int pro_stock) {
         this.pro_id = pro_id;
         this.pro_name = pro_name;
         this.pro_price = pro_price;
@@ -43,11 +43,11 @@ public class product {
         this.pro_name = pro_name;
     }
 
-    public long getPro_price() {
+    public int getPro_price() {
         return pro_price;
     }
 
-    public void setPro_price(long pro_price) {
+    public void setPro_price(int pro_price) {
         this.pro_price = pro_price;
     }
 
