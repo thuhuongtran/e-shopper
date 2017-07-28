@@ -33,4 +33,5 @@ public interface connectDAO {
     public void deleteProd(int pro_id);
     public void insertProd(String pro_name, int pro_price,String pro_img_link, int pro_stock);
     public admin getAd(String name);
+    public List<product> getProdfromSearch(String inStr, List<product> prodLi);
 }

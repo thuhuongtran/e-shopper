@@ -292,5 +292,21 @@ public class MainController {
 
         }
     }
+    // search product
+    @RequestMapping(value ="/search_prod", method = RequestMethod.POST, params = {"inStr"})
+    public String search_prod(ModelMap mm, @RequestParam(value = "inStr") String in_str){
+        // get input string
+        // process input string 
+        ValidateForm vali = new ValidateForm();
+        String[] words = vali.sepString(in_str);
+        // get data through processed input string
+        List prodLi = new ArrayList<>();
+        for(int i=0;i<words.length;i++){
+            dao.getProdfromSearch(words[i], prodLi);
+        }
+        mm.put("proList", prodLi);
+        // return productlist
+        return "productList";
+    }
 
 }

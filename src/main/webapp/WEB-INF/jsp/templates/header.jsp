@@ -2,9 +2,9 @@
 <div id="top-bar" class="container">
     <div class="row">
         <div class="span4">
-            <form method="POST" class="search_form">
+            <form method="POST" action="/e-shopper/search_prod"class="search_form">
                 <input type="text" class="input-block-level search-query"
-                       Placeholder="eg. T-sirt">
+                       Placeholder="eg. T-sirt" name="inStr">
             </form>
         </div>
         <div class="span8">

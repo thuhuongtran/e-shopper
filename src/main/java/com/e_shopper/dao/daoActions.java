@@ -249,6 +249,23 @@ public class daoActions implements connectDAO {
             }
         });
     }
+// find product list from input string 
+    @Override
+    public List<product> getProdfromSearch(String inStr, List<product> prodLi) {
+        String sql = "SELECT * FROM `product` WHERE `product_name` LIKE '%"+inStr+"%'";
+        List<product> prodList = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
+            product pro = new product();
+            pro.setPro_id(rs.getInt("product_id"));
+            pro.setPro_name(rs.getString("product_name"));
+            pro.setPro_price(rs.getInt("product_price"));
+            pro.setPro_img_link(rs.getString("product_image_link"));
+            pro.setPro_stock(rs.getInt("product_stock"));
+            
+            prodLi.add(pro);
+            return pro;
+        });
+        return prodList;
+    }
 
     
 }
