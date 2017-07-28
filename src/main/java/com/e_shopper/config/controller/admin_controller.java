@@ -11,6 +11,8 @@ import com.e_shopper.beans.product;
 import com.e_shopper.dao.connectDAO;
 import com.e_shopper.model.ValidateAdmin;
 import com.e_shopper.model.ValidateForm;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ public class admin_controller {
     @Autowired
     private connectDAO dao_admin;
 
-    @RequestMapping(value = {"/", "/dashboard"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "", "/dashboard"}, method = RequestMethod.GET)
     public String getDashboard(ModelMap mm, HttpSession session) {
         if (session.getAttribute("admin") == null) {
             return "signinAd";
@@ -271,5 +273,33 @@ public class admin_controller {
         }
 
     }
+    // search order from date
+    @RequestMapping(value = "/searchOrder", method = RequestMethod.POST, params = {"searchOrd"})
+    public String searchOrd(ModelMap mm, @RequestParam(value = "searchOrd") String inStr) {
+        // process inputed string
+        // format date
+        // get order from inputed string
+        List<order> ordLi = dao_admin.getOrdfromSear(inStr);
+        mm.put("orderList", ordLi);
+        mm.put("date", inStr);
+        // return to orderbooking
+        return "orderbooking";
+    }
+    // search product 
+     @RequestMapping(value = "/searchProd", method = RequestMethod.POST, params = {"searchProd"})
+    public String searchProd(ModelMap mm, @RequestParam(value = "searchProd") String inStr) {
+        // process inputed string
+         ValidateForm valiF = new ValidateForm();
+         String[] words = valiF.sepString(inStr);
+        // get product from inputed string
+        List<product> prodLi = new ArrayList<>();
+        for(int i=0;i<words.length;i++){
+            dao_admin.getProdfromSearch(words[i], prodLi);
+        }
+        mm.put("proList", prodLi);
+        // return to orderbooking
+        return "manageProd";
+    }
+
 
 }

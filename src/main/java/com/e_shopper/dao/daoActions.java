@@ -153,7 +153,7 @@ public class daoActions implements connectDAO {
     @Override
     public void insertOrder(int prod_id, int number, int amount, int custom_id, String ord_date) {
         String sql = "INSERT INTO `order`(`product_id`, `number`, `amount`, `custom_id`,`Date`,`ord_status`)\n"
-                + "VALUES (" + prod_id + "," + number + "," + amount + "," + custom_id + ",'" + ord_date +"',0)";
+                + "VALUES (" + prod_id + "," + number + "," + amount + "," + custom_id + ",'" + ord_date + "',0)";
         jdbcTemplate.update(sql);
     }
     // get unprocessed order from status
@@ -181,7 +181,7 @@ public class daoActions implements connectDAO {
             ord.setCus_name(rs.getString("custom_name"));
             ord.setCus_phone(rs.getString("custom_phone"));
             ord.setCus_email(rs.getString("custom_email"));
-            ord.setCus_addr(rs.getString("custom_address")+", "+rs.getString("custom_district")+", "+rs.getString("custom_province"));
+            ord.setCus_addr(rs.getString("custom_address") + ", " + rs.getString("custom_district") + ", " + rs.getString("custom_province"));
             ord.setProd_id(rs.getInt("product_id"));
             ord.setProd_img_link(rs.getString("product_image_link"));
             ord.setProd_name(rs.getString("product_name"));
@@ -192,54 +192,58 @@ public class daoActions implements connectDAO {
         });
         return orderList;
     }
+
     // update table order set status = 1 from ord_id
     @Override
-    public void updateStatusOrd(int ord_id){
-        String sql= "UPDATE `order` SET `ord_status` = 1 WHERE `order_id` ="+ord_id;
+    public void updateStatusOrd(int ord_id) {
+        String sql = "UPDATE `order` SET `ord_status` = 1 WHERE `order_id` =" + ord_id;
         jdbcTemplate.update(sql);
     }
 // insert in transaction table
+
     @Override
     public void insertTran(int ord_id, int cus_id, int amount, String tran_date, int prod_id, String prod_name, String prod_img_link) {
         String sql = "INSERT INTO `transaction` (`order_id`,`custom_id`,`amount`,`created`,`status`,`product_id`,`prod_name`,`prod_img_link`)"
-                + "VALUES ("+ord_id+","+cus_id+","+amount+",'"+tran_date+"',0,"+prod_id+",'"+prod_name+"','"+prod_img_link+"')";
+                + "VALUES (" + ord_id + "," + cus_id + "," + amount + ",'" + tran_date + "',0," + prod_id + ",'" + prod_name + "','" + prod_img_link + "')";
         jdbcTemplate.update(sql);
     }
 // delete order 
+
     @Override
     public void deleteOrd(int ord_id) {
-        String sql ="DELETE FROM `order` WHERE `order_id`="+ord_id;
+        String sql = "DELETE FROM `order` WHERE `order_id`=" + ord_id;
         jdbcTemplate.update(sql);
     }
 // update product table 
+
     @Override
     public void updateProd(int prod_id, String prod_name, int prod_price, String prod_img_link, int prod_stock) {
-        String sql = "UPDATE `product` SET `product_name`='"+prod_name+"',`product_price`="+prod_price+","
-                + "`product_image_link`='"+prod_img_link+"',`product_stock`="+prod_stock+" WHERE `product_id`="+prod_id;
+        String sql = "UPDATE `product` SET `product_name`='" + prod_name + "',`product_price`=" + prod_price + ","
+                + "`product_image_link`='" + prod_img_link + "',`product_stock`=" + prod_stock + " WHERE `product_id`=" + prod_id;
         jdbcTemplate.update(sql);
     }
 
     @Override
     public void deleteProd(int pro_id) {
-        String sql ="DELETE FROM `product` WHERE `product_id` ="+pro_id;
+        String sql = "DELETE FROM `product` WHERE `product_id` =" + pro_id;
         jdbcTemplate.update(sql);
     }
 
     @Override
     public void insertProd(String pro_name, int pro_price, String pro_img_link, int pro_stock) {
-        String sql= "INSERT INTO `product` (`product_name`,`product_price`,`product_image_link`,`product_stock`)"
-                + "VALUES ('"+pro_name+"',"+pro_price+",'"+pro_img_link+"',"+pro_stock+")";
+        String sql = "INSERT INTO `product` (`product_name`,`product_price`,`product_image_link`,`product_stock`)"
+                + "VALUES ('" + pro_name + "'," + pro_price + ",'" + pro_img_link + "'," + pro_stock + ")";
         jdbcTemplate.update(sql);
     }
 
     @Override
     public admin getAd(String name) {
-         String sql = "SELECT * FROM `admin` WHERE `admin_name` ='"+name+"'";
+        String sql = "SELECT * FROM `admin` WHERE `admin_name` ='" + name + "'";
         return jdbcTemplate.query(sql, new ResultSetExtractor<admin>() {
             @Override
             public admin extractData(ResultSet rs) throws SQLException, DataAccessException {
                 if (rs.next()) {
-                    admin ad  = new admin();
+                    admin ad = new admin();
                     ad.setAdmin_id(rs.getInt("admin_id"));
                     ad.setAdmin_name(rs.getString("admin_name"));
                     ad.setAdmin_pass(rs.getString("admin_pass"));
@@ -250,9 +254,10 @@ public class daoActions implements connectDAO {
         });
     }
 // find product list from input string 
+
     @Override
     public List<product> getProdfromSearch(String inStr, List<product> prodLi) {
-        String sql = "SELECT * FROM `product` WHERE `product_name` LIKE '%"+inStr+"%'";
+        String sql = "SELECT * FROM `product` WHERE `product_name` LIKE '%" + inStr + "%'";
         List<product> prodList = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
             product pro = new product();
             pro.setPro_id(rs.getInt("product_id"));
@@ -260,12 +265,46 @@ public class daoActions implements connectDAO {
             pro.setPro_price(rs.getInt("product_price"));
             pro.setPro_img_link(rs.getString("product_image_link"));
             pro.setPro_stock(rs.getInt("product_stock"));
-            
+
             prodLi.add(pro);
             return pro;
         });
         return prodList;
     }
+// get unprocessed order from date
 
-    
+    @Override
+    public List<order> getOrdfromSear(String inStr) {
+        String sql = "SELECT `order`.`order_id`,`customer`.`custom_id`, `customer`.`custom_name`,"
+                + " `customer`.`custom_phone`, `customer`.`custom_email`,"
+                + " `customer`.`custom_address`, `customer`.`custom_district`,"
+                + " `customer`.`custom_province`, `product`.`product_id`,`product`.`product_image_link`,"
+                + " `product`.`product_name`, `order`.`number`, `order`.`amount`,"
+                + "`order`.`Date` "
+                + "FROM `order` INNER JOIN `customer` "
+                + "ON `order`.`custom_id`=`customer`.`custom_id` "
+                + "INNER JOIN `product` "
+                + "ON `order`.`product_id`= `product`.`product_id` "
+                + "WHERE `order`.`Date`='"+inStr+"'"
+                + "ORDER BY `order`.`order_id`";
+        List<order> orderList = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
+            order ord = new order();
+            ord.setOrd_id(rs.getInt("order_id"));
+            ord.setCus_id(rs.getInt("custom_id"));
+            ord.setCus_name(rs.getString("custom_name"));
+            ord.setCus_phone(rs.getString("custom_phone"));
+            ord.setCus_email(rs.getString("custom_email"));
+            ord.setCus_addr(rs.getString("custom_address") + ", " + rs.getString("custom_district") + ", " + rs.getString("custom_province"));
+            ord.setProd_id(rs.getInt("product_id"));
+            ord.setProd_img_link(rs.getString("product_image_link"));
+            ord.setProd_name(rs.getString("product_name"));
+            ord.setQuantity(rs.getInt("number"));
+            ord.setAmount(rs.getInt("amount"));
+            ord.setOrd_date(rs.getString("Date"));
+            
+            return ord;
+        });
+        return orderList;
+    }
+
 }

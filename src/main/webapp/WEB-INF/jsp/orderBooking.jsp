@@ -15,7 +15,14 @@
             <div class="col-xs-12">
                 <div class="panel">
                     <header class="panel-heading">
-                        <strong>Unprocessed Invoices</strong>
+                        <c:choose>
+                            <c:when test="${not empty date}">
+                                <strong>Invoices on ${date}</strong>
+                            </c:when>
+                            <c:otherwise>
+                                <strong>Unprocessed Invoices</strong>
+                            </c:otherwise>
+                        </c:choose>
                     </header>
                     <!-- <div class="box-header"> -->
                     <!-- <h3 class="box-title">Responsive Hover Table</h3> -->
@@ -24,10 +31,12 @@
                     <div class="panel-body table-responsive">
                         <div class="box-tools m-b-15">
                             <div class="input-group">
-                                <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                                </div>
+                                <form action="/e-shopper/admin/searchOrder" method="post">
+                                    <input type="date" name="searchOrd" class="form-control input-sm pull-left date" style="width: 150px;" />
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 

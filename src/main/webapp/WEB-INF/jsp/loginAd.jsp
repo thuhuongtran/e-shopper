@@ -9,7 +9,7 @@
     <div class="row">
         <div class="span12">					
             <h4 class="title"><span class="text"><strong>Login</strong> Form</span></h4>
-            <form action="#" method="post">
+            <form action="/e-shopper/admin/signinAd" method="post">
                 <input type="hidden" name="next" value="/">
                 <fieldset>
                     <div class="control-group">
