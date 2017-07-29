@@ -10,11 +10,21 @@ package com.e_shopper.beans;
  * @author User
  */
 public class product {
+
     private int pro_id;
     private String pro_name;
     private int pro_price;
     private String pro_img_link;
     private int pro_stock;
+    private String pro_category;
+
+    public String getPro_category() {
+        return pro_category;
+    }
+
+    public void setPro_category(String pro_category) {
+        this.pro_category = pro_category;
+    }
 
     public product() {
     }
@@ -66,5 +76,5 @@ public class product {
     public void setPro_stock(int pro_stock) {
         this.pro_stock = pro_stock;
     }
-    
+
 }

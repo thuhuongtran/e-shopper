@@ -8,6 +8,7 @@ package com.e_shopper.config.controller;
 import com.e_shopper.beans.admin;
 import com.e_shopper.beans.order;
 import com.e_shopper.beans.product;
+import com.e_shopper.beans.transaction;
 import com.e_shopper.dao.connectDAO;
 import com.e_shopper.model.ValidateAdmin;
 import com.e_shopper.model.ValidateForm;
@@ -33,13 +34,25 @@ public class admin_controller {
     @Autowired
     private connectDAO dao_admin;
 
-    @RequestMapping(value = {"/", "", "/dashboard"}, method = RequestMethod.GET)
-    public String getDashboard(ModelMap mm, HttpSession session) {
+ @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String admin(ModelMap mm, HttpSession session) {
         if (session.getAttribute("admin") == null) {
             return "signinAd";
         } else {
             admin ad = (admin) session.getAttribute("admin");
             mm.put("ad_name", ad.getAdmin_name());
+            return "admin";
+        }
+
+    }
+            @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public String getDashboard(ModelMap mm, HttpSession session) {
+        if (session.getAttribute("admin") == null) {
+            return "signinAd";
+        } else {
+            List<transaction> tranList = dao_admin.getTranList();
+            mm.put("tranList", tranList);
+            session.setAttribute("tranList", tranList);
             return "dashboard";
         }
 

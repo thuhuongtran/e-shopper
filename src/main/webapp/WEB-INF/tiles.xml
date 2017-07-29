@@ -12,7 +12,7 @@
         <put-attribute name="content" value="" />  
         <put-attribute name="footer" value="/WEB-INF/jsp/templates/footer.jsp" />  
     </definition>  
-<!--    Base admin Definition-->
+    <!--    Base admin Definition-->
     <definition name="base-admin" template="/WEB-INF/jsp/layout/layout-admin.jsp">
         <put-attribute name="title" value="" />  
         <put-attribute name="header-admin" value="/WEB-INF/jsp/templates/header-admin.jsp" />  
@@ -45,6 +45,12 @@
         <put-attribute name="title" value="Products" />  
         <put-attribute name="content-top" value="/WEB-INF/jsp/productList_top.jsp" />  
         <put-attribute name="content" value="/WEB-INF/jsp/productList.jsp" />  
+    </definition>  
+    <!-- Product List Man Page -->
+    <definition name="productListMan" extends="base-client">  
+        <put-attribute name="title" value="ProductsMan" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/productList_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/productListMan.jsp" />  
     </definition>  
    
     <!-- Product Detail Page -->
@@ -79,19 +85,19 @@
         <put-attribute name="content-top" value="/WEB-INF/jsp/checkout_top.jsp" />  
         <put-attribute name="content" value="/WEB-INF/jsp/successCheckout.jsp" />  
     </definition>  
-      <!--    my order-->
+    <!--    my order-->
     <definition name="myorder" extends="base-client">  
         <put-attribute name="title" value="My order" />  
         <put-attribute name="content-top" value="/WEB-INF/jsp/order_top.jsp" />  
         <put-attribute name="content" value="/WEB-INF/jsp/myorder.jsp" />  
     </definition>  
-<!--    =======================ADMIN======================= -->
-     <!-- Dashboard admin -->
+    <!--    =======================ADMIN======================= -->
+    <!-- Dashboard admin -->
     <definition name="dashboard" extends="base-admin">  
         <put-attribute name="title" value="Director | Dashboard" />  
         <put-attribute name="main-content" value="/WEB-INF/jsp/dashboard.jsp" />  
     </definition>  
-     <!-- order booking admin -->
+    <!-- order booking admin -->
     <definition name="orderbooking" extends="base-admin">  
         <put-attribute name="title" value="Order Booking" />  
         <put-attribute name="main-content" value="/WEB-INF/jsp/orderBooking.jsp" />  
@@ -106,7 +112,7 @@
         <put-attribute name="title" value="Products" />  
         <put-attribute name="main-content" value="/WEB-INF/jsp/prodList_ad.jsp" />  
     </definition>  
-     <!-- edit product -->
+    <!-- edit product -->
     <definition name="editProd" extends="base-admin">  
         <put-attribute name="title" value="Edit product" />  
         <put-attribute name="main-content" value="/WEB-INF/jsp/editProd.jsp" />  

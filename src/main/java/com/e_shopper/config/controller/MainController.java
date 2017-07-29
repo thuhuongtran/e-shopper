@@ -29,7 +29,8 @@ public class MainController {
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String homePage(ModelMap mm) {
-
+       List<product> prodList = dao.getProList();
+        mm.put("proList", prodList);
         return "homepage";
     }
     // login
@@ -161,6 +162,21 @@ public class MainController {
         product prod = dao.getProd(id);
         mm.put("prod", prod);
         return "productDetail";
+    }
+     // get List product
+    @RequestMapping(value = "/productListMan", method = RequestMethod.GET)
+    public String getProductListMan(ModelMap mm) throws ClassNotFoundException, SQLException {
+        List<product> prodListMan = dao.getProListMan();
+        mm.put("proListMan", prodListMan);
+        return "productListMan";
+    }
+    
+    // get List product
+    @RequestMapping(value = "/productListMan", method = RequestMethod.POST)
+    public String productListMan(ModelMap mm) throws ClassNotFoundException, SQLException {
+        List<product> prodListMan = dao.getProListMan();
+        mm.put("proListMan", prodListMan);
+        return "productListMan";
     }
 
     // add product to cart
