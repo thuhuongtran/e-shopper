@@ -5,22 +5,27 @@
  */
 package com.e_shopper.config.controller;
 
+
 import com.e_shopper.beans.admin;
 import com.e_shopper.beans.order;
 import com.e_shopper.beans.product;
 import com.e_shopper.dao.connectDAO;
+import com.e_shopper.model.FileProcess;
 import com.e_shopper.model.ValidateAdmin;
 import com.e_shopper.model.ValidateForm;
-import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -156,19 +161,26 @@ public class admin_controller {
         }
     }
 
-    @RequestMapping(value = "/editProd", method = RequestMethod.POST, params = {"prod_name", "prod_price", "prod_stock", "prod_img_link", "pro_id"})
+    @RequestMapping(value = "/editProd", method = RequestMethod.POST)
     public String editProduct(ModelMap mm, HttpSession session, @RequestParam(value = "pro_id") int pro_id,
             @RequestParam(value = "prod_name") String pro_name,
             @RequestParam(value = "prod_price") String pro_price,
             @RequestParam(value = "prod_stock") String pro_stock,
-            @RequestParam(value = "prod_img_link") String pro_img_link) {
+            @RequestParam(value = "pro_img_link") MultipartFile imgFile) throws IOException {
         if (session.getAttribute("admin") != null) {
             // validate form
             ValidateAdmin valiAd = new ValidateAdmin();
             ValidateForm valiForm = new ValidateForm();
+            FileProcess fileProcess = new FileProcess();
+            
+            String pro_img_link = null;
+            if(!imgFile.isEmpty()){
+                pro_img_link = fileProcess.processFile(imgFile);
+                System.out.println("link image "+pro_img_link);
+            }
             if (valiForm.validateName(pro_name) > 0 || valiAd.valiProdNum(pro_price) > 0
                     || valiAd.valiProdNum(pro_stock) > 0
-                    || valiForm.validateAddress(pro_img_link) > 0) {
+                    || valiForm.validateAddress(pro_img_link) > 0||pro_img_link==null) {
                 if (valiForm.validateName(pro_name) > 0) {
                     mm.put("proNamVali", valiForm.validateName(pro_name));
                 } else {
@@ -184,7 +196,7 @@ public class admin_controller {
                 } else {
                     mm.put("pro_stock", pro_stock);
                 }
-                if (valiForm.validateAddress(pro_img_link) > 0) {
+                if (valiForm.validateAddress(pro_img_link) > 0||pro_img_link==null) {
                     mm.put("proImgLinkVali", valiForm.validateAddress(pro_img_link));
                 } else {
                     mm.put("pro_img_link", pro_img_link);
@@ -227,19 +239,26 @@ public class admin_controller {
         }
     }
 
-    @RequestMapping(value = "/addNewProd", method = RequestMethod.POST, params = {"prod_name", "prod_price", "prod_stock", "prod_img_link"})
+    @RequestMapping(value = "/addNewProd", method = RequestMethod.POST)
     public String addProduct(ModelMap mm, HttpSession session,
             @RequestParam(value = "prod_name") String pro_name,
             @RequestParam(value = "prod_price") String pro_price,
             @RequestParam(value = "prod_stock") String pro_stock,
-            @RequestParam(value = "prod_img_link") String pro_img_link) {
+            @RequestParam(value = "prod_img_link") MultipartFile imgFile) throws IOException {
         if (session.getAttribute("admin") != null) {
-            // validate form
             ValidateAdmin valiAd = new ValidateAdmin();
             ValidateForm valiForm = new ValidateForm();
+            FileProcess fileProcess = new FileProcess();
+            String prodimgLink =null;
+            if (imgFile != null) {
+                prodimgLink = fileProcess.processFile(imgFile);
+                System.out.println(prodimgLink);
+            }
+            // validate form
+
             if (valiForm.validateName(pro_name) > 0 || valiAd.valiProdNum(pro_price) > 0
                     || valiAd.valiProdNum(pro_stock) > 0
-                    || valiForm.validateAddress(pro_img_link) > 0) {
+                    || valiForm.validateAddress(prodimgLink) > 0||prodimgLink==null) {
                 if (valiForm.validateName(pro_name) > 0) {
                     mm.put("proNamVali", valiForm.validateName(pro_name));
                 } else {
@@ -255,15 +274,15 @@ public class admin_controller {
                 } else {
                     mm.put("pro_stock", pro_stock);
                 }
-                if (valiForm.validateAddress(pro_img_link) > 0) {
-                    mm.put("proImgLinkVali", valiForm.validateAddress(pro_img_link));
+                if (valiForm.validateAddress(prodimgLink) > 0||prodimgLink==null) {
+                    mm.put("proImgLinkVali", 1);
                 } else {
-                    mm.put("pro_img_link", pro_img_link);
+                    mm.put("pro_img_link", 0);
                 }
                 return "addNewProduct";
             } else {
                 // insert into data
-                dao_admin.insertProd(pro_name, Integer.parseInt(pro_price), pro_img_link, Integer.parseInt(pro_stock));
+                dao_admin.insertProd(pro_name, Integer.parseInt(pro_price), prodimgLink, Integer.parseInt(pro_stock));
                 // send view
                 mm.put("succAddProd", 1);
                 return "successProcess";
@@ -273,6 +292,7 @@ public class admin_controller {
         }
 
     }
+
     // search order from date
     @RequestMapping(value = "/searchOrder", method = RequestMethod.POST, params = {"searchOrd"})
     public String searchOrd(ModelMap mm, @RequestParam(value = "searchOrd") String inStr) {
@@ -285,21 +305,21 @@ public class admin_controller {
         // return to orderbooking
         return "orderbooking";
     }
+
     // search product 
-     @RequestMapping(value = "/searchProd", method = RequestMethod.POST, params = {"searchProd"})
+    @RequestMapping(value = "/searchProd", method = RequestMethod.POST, params = {"searchProd"})
     public String searchProd(ModelMap mm, @RequestParam(value = "searchProd") String inStr) {
         // process inputed string
-         ValidateForm valiF = new ValidateForm();
-         String[] words = valiF.sepString(inStr);
+        ValidateForm valiF = new ValidateForm();
+        String[] words = valiF.sepString(inStr);
         // get product from inputed string
         List<product> prodLi = new ArrayList<>();
-        for(int i=0;i<words.length;i++){
+        for (int i = 0; i < words.length; i++) {
             dao_admin.getProdfromSearch(words[i], prodLi);
         }
         mm.put("proList", prodLi);
         // return to orderbooking
         return "manageProd";
     }
-
 
 }

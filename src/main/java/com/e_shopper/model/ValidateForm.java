@@ -5,7 +5,6 @@
  */
 package com.e_shopper.model;
 
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -78,4 +77,5 @@ public class ValidateForm {
         String[] words = str.trim().split("\\W+");
         return words;
     }
+    
 }

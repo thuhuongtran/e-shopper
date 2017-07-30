@@ -5,6 +5,8 @@
  */
 package com.e_shopper.model;
 
+import java.io.File;
+
 /**
  *
  * @author User
@@ -26,5 +28,12 @@ public class ValidateAdmin {
             return false;
         }
         return true;
+    }
+    // validate file
+    public int valiFile(File uploadFile){
+        if(uploadFile.length()==0)
+            return 1;
+        else
+            return 0;
     }
 }

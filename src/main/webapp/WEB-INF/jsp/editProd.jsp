@@ -19,7 +19,7 @@
                         Edit product
                     </header>
                     <div class="panel-body">
-                        <form role="form" action="/e-shopper/admin/editProd?pro_id=${pro_id}" method="post">
+                        <form role="form" action="/e-shopper/admin/editProd?pro_id=${pro_id}" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Product Name</label>
                                 <input type="text" class="form-control" id="exampleInputEmail1" name="prod_name" value="${pro_name}">
@@ -58,7 +58,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Image Link</label>
-                                <input type="text" class="form-control" id="exampleInputPassword1" name="prod_img_link" value="${pro_img_link}">
+                                <!--input type="text" class="form-control" id="exampleInputPassword1" name="prod_img_link" value="${pro_img_link}"-->
+                                 <input type="file" name="pro_img_link"/>
                                  <c:choose>
                                     <c:when test="${proImgLinkVali==1}">
                                         <div class="error" style="color: red">You have to enter product image link here.</div>
