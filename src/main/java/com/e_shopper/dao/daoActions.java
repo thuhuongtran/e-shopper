@@ -327,7 +327,7 @@ public class daoActions implements connectDAO {
     }
             @Override
     public List<transaction> getTranList() {
-        String sql = "SELECT * FROM transaction WHERE status=0 ORDER BY created DESC";
+        String sql = "SELECT * FROM `transaction` WHERE `status`=0 ORDER BY created DESC";
         List<transaction> tranList = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
             transaction tran = new transaction();
             tran.setTran_id(rs.getInt("transaction_id"));

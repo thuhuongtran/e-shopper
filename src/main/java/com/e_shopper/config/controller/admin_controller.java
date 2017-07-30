@@ -5,7 +5,6 @@
  */
 package com.e_shopper.config.controller;
 
-
 import com.e_shopper.beans.admin;
 import com.e_shopper.beans.order;
 import com.e_shopper.beans.product;
@@ -35,34 +34,32 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping(value = "/admin")
 public class admin_controller {
-
+    
     @Autowired
     private connectDAO dao_admin;
-
- @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String admin(ModelMap mm, HttpSession session) {
+    
+    @RequestMapping(value = {"/", "", "/dashboard"}, method = RequestMethod.GET)
+    public String getDashboard(ModelMap mm, HttpSession session) {
         if (session.getAttribute("admin") == null) {
             return "signinAd";
         } else {
             admin ad = (admin) session.getAttribute("admin");
             mm.put("ad_name", ad.getAdmin_name());
-            return "admin";
-        }
-
-    }
-            @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String getDashboard(ModelMap mm, HttpSession session) {
-        if (session.getAttribute("admin") == null) {
-            return "signinAd";
-        } else {
-            List<transaction> tranList = dao_admin.getTranList();
-            mm.put("tranList", tranList);
-            session.setAttribute("tranList", tranList);
+            // get transactions which are uncompleted
+            if (session.getAttribute("tranList") != null) {
+                List<transaction> tranList = (List<transaction>) session.getAttribute("tranList");
+                mm.put("tranList", tranList);
+                session.setAttribute("tranList", tranList);
+            } else {
+                List<transaction> tranList = dao_admin.getTranList();
+                mm.put("tranList", tranList);
+                session.setAttribute("tranList", tranList);
+            }
             return "dashboard";
         }
-
+        
     }
-
+    
     @RequestMapping(value = {"/signinAd"}, method = RequestMethod.POST, params = {"ad_name", "ad_pass"})
     public String signin(ModelMap mm, HttpSession session,
             @RequestParam(value = "ad_name") String ad_name, @RequestParam(value = "ad_pass") String ad_pass) {
@@ -81,16 +78,16 @@ public class admin_controller {
                 if (ad_pass.equals(ad.getAdmin_pass())) {
                     session.setAttribute("admin", ad);
                     session.setAttribute("ad_name", ad_name);
-                    return "dashboard";
+                    return "redirect:dashboard";
                 } else {
                     mm.put("errorLog", 1);
                 }
             }
             return "signinAd";
         }
-
+        
     }
-
+    
     @RequestMapping(value = "/orderbooking", method = RequestMethod.GET)
     public String getOrderBooking(ModelMap mm, HttpSession session) {
         if (session.getAttribute("admin") != null) {
@@ -102,9 +99,9 @@ public class admin_controller {
         } else {
             return "signinAd";
         }
-
+        
     }
-
+    
     @RequestMapping(value = "/confirmOder", method = RequestMethod.GET, params = {"ord_id"})
     public String confirmOrder(ModelMap mm, HttpSession session, @RequestParam(value = "ord_id") int ord_id) {
         if (session.getAttribute("admin") != null) {
@@ -128,9 +125,9 @@ public class admin_controller {
         } else {
             return "signinAd";
         }
-
+        
     }
-
+    
     @RequestMapping(value = "/declineOrder", method = RequestMethod.GET, params = {"ord_id"})
     public String declineOrder(ModelMap mm, HttpSession session, @RequestParam(value = "ord_id") int ord_id) {
         if (session.getAttribute("admin") != null) {
@@ -144,9 +141,9 @@ public class admin_controller {
         } else {
             return "signinAd";
         }
-
+        
     }
-
+    
     @RequestMapping(value = "/prodListAd", method = RequestMethod.GET)
     public String getProList(ModelMap mm, HttpSession session) {
         if (session.getAttribute("admin") != null) {
@@ -157,7 +154,7 @@ public class admin_controller {
             return "signinAd";
         }
     }
-
+    
     @RequestMapping(value = "/editProd", method = RequestMethod.GET, params = {"pro_id"})
     public String editProd(ModelMap mm, HttpSession session, @RequestParam(value = "pro_id") int pro_id) {
         if (session.getAttribute("admin") != null) {
@@ -173,7 +170,7 @@ public class admin_controller {
             return "signinAd";
         }
     }
-
+    
     @RequestMapping(value = "/editProd", method = RequestMethod.POST)
     public String editProduct(ModelMap mm, HttpSession session, @RequestParam(value = "pro_id") int pro_id,
             @RequestParam(value = "prod_name") String pro_name,
@@ -187,13 +184,13 @@ public class admin_controller {
             FileProcess fileProcess = new FileProcess();
             
             String pro_img_link = null;
-            if(!imgFile.isEmpty()){
+            if (!imgFile.isEmpty()) {
                 pro_img_link = fileProcess.processFile(imgFile);
-                System.out.println("link image "+pro_img_link);
+                System.out.println("link image " + pro_img_link);
             }
             if (valiForm.validateName(pro_name) > 0 || valiAd.valiProdNum(pro_price) > 0
                     || valiAd.valiProdNum(pro_stock) > 0
-                    || valiForm.validateAddress(pro_img_link) > 0||pro_img_link==null) {
+                    || valiForm.validateAddress(pro_img_link) > 0 || pro_img_link == null) {
                 if (valiForm.validateName(pro_name) > 0) {
                     mm.put("proNamVali", valiForm.validateName(pro_name));
                 } else {
@@ -209,7 +206,7 @@ public class admin_controller {
                 } else {
                     mm.put("pro_stock", pro_stock);
                 }
-                if (valiForm.validateAddress(pro_img_link) > 0||pro_img_link==null) {
+                if (valiForm.validateAddress(pro_img_link) > 0 || pro_img_link == null) {
                     mm.put("proImgLinkVali", valiForm.validateAddress(pro_img_link));
                 } else {
                     mm.put("pro_img_link", pro_img_link);
@@ -226,7 +223,7 @@ public class admin_controller {
         } else {
             return "signinAd";
         }
-
+        
     }
 
     // delete product
@@ -251,7 +248,7 @@ public class admin_controller {
             return "signinAd";
         }
     }
-
+    
     @RequestMapping(value = "/addNewProd", method = RequestMethod.POST)
     public String addProduct(ModelMap mm, HttpSession session,
             @RequestParam(value = "prod_name") String pro_name,
@@ -262,7 +259,7 @@ public class admin_controller {
             ValidateAdmin valiAd = new ValidateAdmin();
             ValidateForm valiForm = new ValidateForm();
             FileProcess fileProcess = new FileProcess();
-            String prodimgLink =null;
+            String prodimgLink = null;
             if (imgFile != null) {
                 prodimgLink = fileProcess.processFile(imgFile);
                 System.out.println(prodimgLink);
@@ -271,7 +268,7 @@ public class admin_controller {
 
             if (valiForm.validateName(pro_name) > 0 || valiAd.valiProdNum(pro_price) > 0
                     || valiAd.valiProdNum(pro_stock) > 0
-                    || valiForm.validateAddress(prodimgLink) > 0||prodimgLink==null) {
+                    || valiForm.validateAddress(prodimgLink) > 0 || prodimgLink == null) {
                 if (valiForm.validateName(pro_name) > 0) {
                     mm.put("proNamVali", valiForm.validateName(pro_name));
                 } else {
@@ -287,7 +284,7 @@ public class admin_controller {
                 } else {
                     mm.put("pro_stock", pro_stock);
                 }
-                if (valiForm.validateAddress(prodimgLink) > 0||prodimgLink==null) {
+                if (valiForm.validateAddress(prodimgLink) > 0 || prodimgLink == null) {
                     mm.put("proImgLinkVali", 1);
                 } else {
                     mm.put("pro_img_link", 0);
@@ -303,7 +300,7 @@ public class admin_controller {
         } else {
             return "signinAd";
         }
-
+        
     }
 
     // search order from date
@@ -334,5 +331,5 @@ public class admin_controller {
         // return to orderbooking
         return "manageProd";
     }
-
+    
 }
