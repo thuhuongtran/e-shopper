@@ -31,7 +31,7 @@
 <div id="wrapper" class="container">
     <section class="navbar main-menu">
         <div class="navbar-inner main-menu">
-            <a href="#" class="logo pull-left"><img
+            <a href="/e-shopper" class="logo pull-left"><img
                     src="/e-shopper/assets/themes/images/logo.png" class="site_logo" alt=""></a>
             <nav id="menu" class="pull-right">
                 <ul>
@@ -41,7 +41,7 @@
                             <li><a href="./productList.html">Eget molestie</a></li>
                             <li><a href="./productList.html">Varius purus</a></li>
                         </ul></li>
-                    <li><a href="./productList.html">Man</a></li>
+                    <li><a href="./productListMan.html">Man</a></li>
                     <li><a href="./productList.html">Sport</a>
                         <ul>
                             <li><a href="./productList.html">Gifts and Tech</a></li>

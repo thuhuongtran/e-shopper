@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2017 at 01:03 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+-- Generation Time: Jul 29, 2017 at 06:56 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -86,7 +86,8 @@ INSERT INTO `customer` (`custom_id`, `custom_pass`, `custom_email`, `custom_name
 (23, '', 'omaega@mail.com', 'Omega Six', '0326598412', '654 Hwas', 'Da Nang', 'Hai Ba Trung'),
 (24, '', 'nullaj@mail.com', 'Null numaa', '032659874', '979 Thwas Outah', 'Da Nang', 'Hoan Kiem'),
 (25, '', 'hunae@mail.com', 'Hunaae Hina', '0326556984', '98 Wall Street', 'Da Nang', 'Hai Ba Trung'),
-(26, '', 'addam@mail.com', 'Adam Eva', '0326598712', '765 Hungad', 'Ha Noi', 'Hai Ba Trung');
+(26, '', 'addam@mail.com', 'Adam Eva', '0326598712', '765 Hungad', 'Ha Noi', 'Hai Ba Trung'),
+(27, '123456789', 'admin@gmail.com', 'superadmin', '123456789', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -143,34 +144,35 @@ CREATE TABLE `product` (
   `product_name` varchar(100) CHARACTER SET utf8 NOT NULL,
   `product_price` int(20) NOT NULL,
   `product_image_link` varchar(250) NOT NULL,
-  `product_stock` int(10) NOT NULL
+  `product_stock` int(10) NOT NULL,
+  `product_category` varchar(100) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_image_link`, `product_stock`) VALUES
-(3, 'Praesent tempor sem', 28, '/e-shopper/assets/themes/images/ladies/8.jpg', 10),
-(4, 'Wuam ultrices rutrum', 320, '/e-shopper/assets/themes/images/ladies/7.jpg', 10),
-(5, 'Praesent tempor sem', 28, '/e-shopper/assets/themes/images/ladies/5.jpg', 10),
-(6, 'Wuam ultrices rutrum', 320, '/e-shopper/assets/themes/images/ladies/4.jpg', 10),
-(7, 'Praesent tempor sem sodales', 49, '/e-shopper/assets/themes/images/ladies/6.jpg', 5),
-(8, 'Fusce id molestie massa', 35, '/e-shopper/assets/themes/images/ladies/1.jpg', 2),
-(9, 'Praesent tempor sem sodales', 49, '/e-shopper/assets/themes/images/ladies/2.jpg', 5),
-(10, 'Fusce id molestie massa', 35, '/e-shopper/assets/themes/images/ladies/1.jpg', 2),
-(11, 'Luctus quam ultrices', 261, '/e-shopper/assets/themes/images/ladies/3.jpg', 5),
-(12, 'Phasellus consequat', 562, '/e-shopper/assets/themes/images/ladies/10.jpg', 1),
-(13, 'Erat gravida', 52, '/e-shopper/assets/themes/images/ladies/11.jpg', 56),
-(14, 'Suspendisse aliquet', 54, '/e-shopper/assets/themes/images/ladies/12.jpg', 17),
-(15, 'Nam imperdiet', 15, '/e-shopper/assets/themes/images/ladies/14.jpg', 5),
-(16, 'Congue diam congue', 58, '/e-shopper/assets/themes/images/ladies/15.jpg', 10),
-(17, 'Phasellus consequat', 562, '/e-shopper/assets/themes/images/ladies/16.jpg', 1),
-(19, 'Suspendisse aliquet', 54, '/e-shopper/assets/themes/images/ladies/18.jpg', 17),
-(20, 'Nam imperdiet', 15, '/e-shopper/assets/themes/images/ladies/19.jpg', 5),
-(21, 'Congue diam congue', 58, '/e-shopper/assets/themes/images/ladies/13.jpg', 10),
-(22, 'Hasse ide Maasse', 250, '/e-shopper/assets/themes/images/ladies/17.jpg', 25),
-(23, 'Phimeo Mmea had', 300, '/e-shopper/assets/themes/images/ladies/9.jpg', 15);
+INSERT INTO `product` (`product_id`, `product_name`, `product_price`, `product_image_link`, `product_stock`, `product_category`) VALUES
+(3, 'Praesent tempor sem', 28, '/e-shopper/assets/themes/images/ladies/8.jpg', 10, 'women'),
+(4, 'Wuam ultrices rutrum', 320, '/e-shopper/assets/themes/images/ladies/7.jpg', 10, 'women'),
+(5, 'Praesent tempor sem', 28, '/e-shopper/assets/themes/images/ladies/5.jpg', 10, ''),
+(6, 'Wuam ultrices rutrum', 320, '/e-shopper/assets/themes/images/ladies/4.jpg', 10, ''),
+(7, 'Praesent tempor sem sodales', 49, '/e-shopper/assets/themes/images/ladies/6.jpg', 5, ''),
+(8, 'Fusce id molestie massa', 35, '/e-shopper/assets/themes/images/ladies/1.jpg', 2, ''),
+(9, 'Praesent tempor sem sodales', 49, '/e-shopper/assets/themes/images/ladies/2.jpg', 5, ''),
+(10, 'Fusce id molestie massa', 35, '/e-shopper/assets/themes/images/ladies/1.jpg', 2, ''),
+(11, 'Luctus quam ultrices', 261, '/e-shopper/assets/themes/images/ladies/3.jpg', 5, ''),
+(12, 'Phasellus consequat', 562, '/e-shopper/assets/themes/images/ladies/10.jpg', 1, ''),
+(13, 'Erat gravida', 52, '/e-shopper/assets/themes/images/ladies/11.jpg', 56, ''),
+(14, 'Suspendisse aliquet', 54, '/e-shopper/assets/themes/images/ladies/12.jpg', 17, ''),
+(15, 'Nam imperdiet', 15, '/e-shopper/assets/themes/images/ladies/14.jpg', 5, ''),
+(16, 'Congue diam congue', 58, '/e-shopper/assets/themes/images/ladies/15.jpg', 10, 'Men'),
+(17, 'Phasellus consequat', 562, '/e-shopper/assets/themes/images/ladies/16.jpg', 1, 'Men'),
+(19, 'Suspendisse aliquet', 54, '/e-shopper/assets/themes/images/ladies/18.jpg', 17, 'Men'),
+(20, 'Nam imperdiet', 15, '/e-shopper/assets/themes/images/ladies/19.jpg', 5, 'Men'),
+(21, 'Congue diam congue', 58, '/e-shopper/assets/themes/images/ladies/13.jpg', 10, ''),
+(22, 'Hasse ide Maasse', 250, '/e-shopper/assets/themes/images/ladies/17.jpg', 25, ''),
+(23, 'Phimeo Mmea had', 300, '/e-shopper/assets/themes/images/ladies/9.jpg', 15, '');
 
 -- --------------------------------------------------------
 
@@ -304,7 +306,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `custom_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `custom_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `order`
 --

@@ -41,10 +41,29 @@ public class daoActions implements connectDAO {
             pro.setPro_price(rs.getInt("product_price"));
             pro.setPro_img_link(rs.getString("product_image_link"));
             pro.setPro_stock(rs.getInt("product_stock"));
+            pro.setPro_category(rs.getString("product_category"));
 
             return pro;
         });
         return proList;
+    }
+
+    @Override
+    public List<product> getProListMan() {
+        String Men = "Men";
+        String sql = "SELECT * FROM product WHERE product_category = '" + Men + "'";
+        List<product> proListMan = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
+            product pro = new product();
+            pro.setPro_id(rs.getInt("product_id"));
+            pro.setPro_name(rs.getString("product_name"));
+            pro.setPro_price(rs.getInt("product_price"));
+            pro.setPro_img_link(rs.getString("product_image_link"));
+            pro.setPro_stock(rs.getInt("product_stock"));
+            pro.setPro_category(rs.getString("product_category"));
+
+            return pro;
+        });
+        return proListMan;
     }
 
     // get product from its id
@@ -285,7 +304,7 @@ public class daoActions implements connectDAO {
                 + "ON `order`.`custom_id`=`customer`.`custom_id` "
                 + "INNER JOIN `product` "
                 + "ON `order`.`product_id`= `product`.`product_id` "
-                + "WHERE `order`.`Date`='"+inStr+"'"
+                + "WHERE `order`.`Date`='" + inStr + "'"
                 + "ORDER BY `order`.`order_id`";
         List<order> orderList = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
             order ord = new order();
@@ -301,10 +320,29 @@ public class daoActions implements connectDAO {
             ord.setQuantity(rs.getInt("number"));
             ord.setAmount(rs.getInt("amount"));
             ord.setOrd_date(rs.getString("Date"));
-            
+
             return ord;
         });
         return orderList;
+    }
+            @Override
+    public List<transaction> getTranList() {
+        String sql = "SELECT * FROM transaction WHERE status=0 ORDER BY created DESC";
+        List<transaction> tranList = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
+            transaction tran = new transaction();
+            tran.setTran_id(rs.getInt("transaction_id"));
+            tran.setOrder_id(rs.getInt("order_id"));
+            tran.setCustom_id(rs.getInt("custom_id"));
+            tran.setTran_amount(rs.getInt("amount"));
+            tran.setTran_day(rs.getDate("created"));
+            tran.setTran_status(rs.getInt("status"));
+            tran.setProd_id(rs.getInt("product_id"));
+            tran.setProd_name(rs.getString("prod_name"));
+            tran.setProd_image_link(rs.getString("prod_img_link"));
+
+            return tran;
+        });
+        return tranList;
     }
 
 }

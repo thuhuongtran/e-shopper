@@ -35,4 +35,8 @@ public interface connectDAO {
     public admin getAd(String name);
     public List<product> getProdfromSearch(String inStr, List<product> prodLi);
     public List<order> getOrdfromSear(String inStr);
+
+    public List<product> getProListMan();
+
+    public List<transaction> getTranList();
 }
