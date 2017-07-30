@@ -250,8 +250,8 @@ public class daoActions implements connectDAO {
 
     @Override
     public void insertProd(String pro_name, int pro_price, String pro_img_link, int pro_stock) {
-        String sql = "INSERT INTO `product` (`product_name`,`product_price`,`product_image_link`,`product_stock`)"
-                + "VALUES ('" + pro_name + "'," + pro_price + ",'" + pro_img_link + "'," + pro_stock + ")";
+        String sql = "INSERT INTO `product` (`product_name`,`product_price`,`product_image_link`,`product_stock`,`product_category`)"
+                + "VALUES ('" + pro_name + "'," + pro_price + ",'" + pro_img_link + "'," + pro_stock + ",'')";
         jdbcTemplate.update(sql);
     }
 

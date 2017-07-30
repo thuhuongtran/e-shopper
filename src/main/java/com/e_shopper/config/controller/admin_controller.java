@@ -206,7 +206,7 @@ public class admin_controller {
                 } else {
                     mm.put("pro_stock", pro_stock);
                 }
-                if (valiForm.validateAddress(pro_img_link) > 0 || pro_img_link == null) {
+                if (valiForm.validateAddress(pro_img_link) > 0 || pro_img_link == null||imgFile==null) {
                     mm.put("proImgLinkVali", valiForm.validateAddress(pro_img_link));
                 } else {
                     mm.put("pro_img_link", pro_img_link);
@@ -284,7 +284,7 @@ public class admin_controller {
                 } else {
                     mm.put("pro_stock", pro_stock);
                 }
-                if (valiForm.validateAddress(prodimgLink) > 0 || prodimgLink == null) {
+                if (valiForm.validateAddress(prodimgLink) > 0 || prodimgLink == null||imgFile==null) {
                     mm.put("proImgLinkVali", 1);
                 } else {
                     mm.put("pro_img_link", 0);
