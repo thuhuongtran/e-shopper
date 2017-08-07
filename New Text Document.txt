@@ -1,0 +1,63 @@
+-edit file title add:
+       <!-- Product Top Sell Page -->
+    <definition name="topSell" extends="base-client">  
+        <put-attribute name="title" value="top Sell" />  
+        <put-attribute name="content-top" value="/WEB-INF/jsp/topSell_top.jsp" />  
+        <put-attribute name="content" value="/WEB-INF/jsp/topSell.jsp" />  
+    </definition>  
+
+
+-edit file Maincontroller add:
+     // get List TopSell
+    @RequestMapping(value = "/topSell", method = RequestMethod.GET)
+    public String gettopSell(ModelMap mm) throws ClassNotFoundException, SQLException {
+        List<order> topSellList = dao.gettopSell();
+        mm.put("topSellList", topSellList);
+        return "topSell";
+    }
+    
+    // get List TopSell
+    @RequestMapping(value = "/topSell", method = RequestMethod.POST)
+    public String topSell(ModelMap mm) throws ClassNotFoundException, SQLException {
+        List<order> topSellList = dao.gettopSell();
+        mm.put("topSellList", topSellList);
+        return "topSell";
+    }
+
+-Edit file connect Dao add:
+	public List<order> gettopSell();
+
+-edit file daoAction add:
+    @Override
+    public List<order> gettopSell() {
+        String sql = "SELECT `order`.`order_id`,`customer`.`custom_id`, `customer`.`custom_name`,"
+                + " `customer`.`custom_phone`, `customer`.`custom_email`,"
+                + " `customer`.`custom_address`, `customer`.`custom_district`,"
+                + " `customer`.`custom_province`, `product`.`product_id`,`product`.`product_image_link`,"
+                + " `product`.`product_name`, `order`.`number`, `order`.`amount`,"
+                + "`order`.`Date` "
+                + "FROM `order` INNER JOIN `customer` "
+                + "ON `order`.`custom_id`=`customer`.`custom_id` "
+                + "INNER JOIN `product` "
+                + "ON `order`.`product_id`= `product`.`product_id` "
+                + "WHERE `order`.`ord_status` =1 "
+                + "ORDER BY `order`.`number` ";
+        List<order> topSellList = jdbcTemplate.query(sql, (ResultSet rs, int i) -> {
+            order ord = new order();
+            ord.setOrd_id(rs.getInt("order_id"));
+            ord.setCus_id(rs.getInt("custom_id"));
+            ord.setCus_name(rs.getString("custom_name"));
+            ord.setCus_phone(rs.getString("custom_phone"));
+            ord.setCus_email(rs.getString("custom_email"));
+            ord.setCus_addr(rs.getString("custom_address") + ", " + rs.getString("custom_district") + ", " + rs.getString("custom_province"));
+            ord.setProd_id(rs.getInt("product_id"));
+            ord.setProd_img_link(rs.getString("product_image_link"));
+            ord.setProd_name(rs.getString("product_name"));
+            ord.setQuantity(rs.getInt("number"));
+            ord.setAmount(rs.getInt("amount"));
+            ord.setOrd_date(rs.getString("Date"));
+            return ord;
+        });
+        return topSellList;
+
+    }
